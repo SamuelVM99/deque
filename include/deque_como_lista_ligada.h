@@ -21,13 +21,11 @@ typedef struct lista_dupla {
 //Cria uma lista vazia.
 ListaDupla* criarLista(ListaDupla* list);
 
-/// @brief Adiciona um objeto ao inicio de dada lista
-/// @param list lista principal
-/// @param valor valor a ser inserido
-void addInicio(ListaDupla* list, int valor);
+//Adiciona um objeto ao inicio de dada lista.
+void addInicio(ListaDupla* list, int tamanho);
 
 //Adiciona um objeto ao final de dada lista.
-void addFinal(ListaDupla* list, int tamanho);
+void addFinal(ListaDupla* list, int dado);
 
 //Remove o primeiro objeto de dada lista.
 void removeInicio(ListaDupla* list, int tamanho);

@@ -4,8 +4,6 @@
 #include <stdbool.h>
 
 ListaDupla* criarLista(ListaDupla* list){
-    list = (ListaDupla*) malloc(sizeof(ListaDupla));
-
     list->tamanho = 0;
     list->primeiro = NULL;
     list->ultimo = NULL;
@@ -13,27 +11,22 @@ ListaDupla* criarLista(ListaDupla* list){
     return list;
 }
 
+void addInicio(ListaDupla* list, int tamanho) {
 
-void addInicio(ListaDupla* list, int valor) {
-    if (list == NULL) {
-        list = criarLista(list);
-    }
-   
-    list->tamanho++;
-
-    ObjInterno* novoPrimeiroElemento = (ObjInterno*) malloc(sizeof(ObjInterno));
-    novoPrimeiroElemento->dado = valor;
-    novoPrimeiroElemento->anterior = NULL;
-    novoPrimeiroElemento->proximo = NULL;
-
-    ObjInterno* primeiroElementoDaLista = list->primeiro;
-
-    novoPrimeiroElemento->proximo = primeiroElementoDaLista;
-
-    free(novoPrimeiroElemento);
 }
 
-void addFinal(ListaDupla* list, int tamanho) {
+void addFinal(ListaDupla* list, int dado) {
+    list->tamanho++;
+    ObjInterno* ultimoAntigo = list->ultimo;
+
+    ObjInterno* ptrNovo = (ObjInterno*) malloc(sizeof(ObjInterno));
+    ptrNovo->dado = dado;
+    ptrNovo->anterior = ultimoAntigo;
+    ptrNovo->proximo = NULL;
+
+    ultimoAntigo->proximo = ptrNovo;
+
+    list->ultimo = ptrNovo;
 
 }
 
@@ -79,6 +72,9 @@ int imprimeLista(ListaDupla* list) {
 
         /* Após imprimir o valor é utilizado a mesma variável para guardar o próximo
         objeto que será impresso na próxima iteração */
+        if(objAtual.proximo == NULL) {
+            break;
+        }
         objAtual = *objAtual.proximo;
     }
     

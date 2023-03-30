@@ -5,7 +5,7 @@
 #include <locale.h>
 
 int main() { 
-    //Teste commit Samuel
+    
     //Essa linha faz os acentos e caracteres especiais funcionarem.
     setlocale(LC_ALL,"");
 
@@ -81,6 +81,7 @@ int main() {
             continue;
         }
 
+        int valor = 0;
         //Switch case que será utilizado para definir qual função executar, baseado na opção do usuário.
         switch (escolha) {
         case FINALIZAR_PROGRAMA:
@@ -89,7 +90,9 @@ int main() {
             break;
 
         case ADICIONAR_INICIO:
-            //addInicio();
+            printf("Digite o valor que deseja adicionar no inicio da lista: ");
+            scanf("%d", &valor);
+            addInicio(list, valor);
             break;
 
         case 2:

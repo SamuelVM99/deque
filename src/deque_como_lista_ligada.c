@@ -13,7 +13,6 @@ ListaDupla* criarLista(ListaDupla* list){
     return list;
 }
 
-
 void addInicio(ListaDupla* list, int valor) {
     if (list == NULL) {
         list = criarLista(list);
@@ -33,15 +32,58 @@ void addInicio(ListaDupla* list, int valor) {
     free(novoPrimeiroElemento);
 }
 
-void addFinal(ListaDupla* list, int tamanho) {
+void addFinal(ListaDupla* list, int dado) {
+    if (list == NULL) {
+        list = criarLista(list);
+    }
 
+    //Cria e popula o novo objeto
+    ObjInterno *ptrNovo = (ObjInterno *)malloc(sizeof(ObjInterno));
+    ptrNovo->dado = dado;
+    ptrNovo->proximo = NULL;
+
+    if(list->tamanho >= 1) {// Valida se a lista contém pelo menos um objeto para evitar acessos nulos
+        ObjInterno* ultimoAntigo = list->ultimo;
+        ultimoAntigo->proximo = ptrNovo;
+        ptrNovo->anterior = ultimoAntigo;
+
+        list->ultimo = ptrNovo;
+    } else {// Caso a lista estivesse vazia o novo objeto é o último e também o primeiro
+        ptrNovo->anterior = NULL;
+        list->primeiro = ptrNovo;
+        list->ultimo = ptrNovo;
+    }
+
+    list->tamanho++; 
 }
 
-void removeInicio(ListaDupla* list, int tamanho) {
+void removeInicio(ListaDupla* list) {
+    /* Valida se a lista já não está vazia no momento da chamada.
+       caso esteja, a função não é executada e uma mensagem é exibida */
+    if(list->tamanho > 0) {
 
+    /* Passada a validação, o tamanho da lista é subtraído e 
+        guardamos o objeto a ser removido em uma variável auxiliar */
+    list->tamanho--;
+    ObjInterno* primeiroAntigo = list->primeiro;
+
+    /* Valida se há mais de um objeto na lista para evitar que o valor "próximo" seja NULL*/
+    if(list->tamanho > 1) {
+        list->primeiro = primeiroAntigo->proximo;
+        list->primeiro->anterior = NULL;
+    }
+
+    //Libera a memória do objeto removido
+    free(primeiroAntigo);
+
+    printf("\nObjeto removido da lista com sucesso!\n");
+
+    } else {
+        printf("\nNão foi possível remover o objeto da lista pois a mesma já está vazia\n");
+    }
 }
 
-void removeFinal(ListaDupla* list, int tamanho) {
+void removeFinal(ListaDupla* list) {
 
 }
 
@@ -66,8 +108,8 @@ void OrganizaDescendente(ListaDupla* list) {
 int imprimeLista(ListaDupla* list) {
     /* Valida se o primeiro objeto está nulo, caso esteja será retornado 0, pois não há 
         elementos dentro da lista, será impresso uma mensagem, finalizando assim a função */
-    if(list->primeiro == NULL) {
-        printf("A lista está vazia!");
+    if(list->tamanho == 0 || list == NULL) {
+        printf("\nA lista está vazia!\n");
         return 0;
     }
 
@@ -79,6 +121,9 @@ int imprimeLista(ListaDupla* list) {
 
         /* Após imprimir o valor é utilizado a mesma variável para guardar o próximo
         objeto que será impresso na próxima iteração */
+        if(objAtual.proximo == NULL) {
+            break;
+        }
         objAtual = *objAtual.proximo;
     }
     

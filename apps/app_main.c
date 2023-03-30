@@ -5,7 +5,7 @@
 #include <locale.h>
 
 int main() { 
-    
+    //Teste commit Samuel
     //Essa linha faz os acentos e caracteres especiais funcionarem.
     setlocale(LC_ALL,"");
 
@@ -43,13 +43,13 @@ int main() {
     obj3.dado = 30;
 
     obj.proximo = p2;
-    obj.anterior = p3;
+    obj.anterior = NULL;
 
     obj2.anterior = p;
     obj2.proximo = p3;
 
-    obj3.proximo = p;
     obj3.anterior = p2;
+    obj3.proximo = NULL;
 
     //Instância a lista e popula ela com o tamanho, primeiro objeto e último objeto.
     ListaDupla listaInicial = {3, p, p3};
@@ -72,6 +72,7 @@ int main() {
         //Lê o input do usuario e guarda sua escolha, que será utilizada no switch case
         printf("\nOpção: ");
         scanf("%d", &escolha);
+        printf("\n");
 
         /* Valida se o input do usuário é um input válido
             Caso não seja, é impresso uma mensagem e esse loop é ingorado 
@@ -81,8 +82,9 @@ int main() {
             continue;
         }
 
-        int valor = 0;
+
         //Switch case que será utilizado para definir qual função executar, baseado na opção do usuário.
+        int valor = 0;
         switch (escolha) {
         case FINALIZAR_PROGRAMA:
             finalizar = true;
@@ -95,35 +97,37 @@ int main() {
             addInicio(list, valor);
             break;
 
-        case 2:
-            //addFinal();
+        case ADICIONAR_FINAL:
+            printf("Informe o dado que deseja adicionar\n");
+            scanf("%d", &valor);
+            addFinal(list, valor);
             break;
 
-        case 3:
-            //removeInicio();
+        case REMOVER_INICIO:
+            removeInicio(list);
             break;
 
-        case 4:
+        case REMOVER_FINAL:
             //removeFinal();
             break;
 
-        case 5:
+        case BUSCAR_PRIMEIRO:
             buscaPrimeiro(list);
             break;
 
-        case 6:
+        case BUSCAR_ULTIMO:
             buscaUltimo(list);
             break;
 
-        case 7:
+        case ORGANIZAR_ASC:
             //organizaAscendente();
             break;
 
-        case 8:
+        case ORGANIZAR_DESC:
             //OrganizaDescendente();
             break;
 
-        case 9:
+        case IMPRIMIR:
             imprimeLista(list);
             break;
         }

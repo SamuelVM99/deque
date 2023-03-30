@@ -5,7 +5,7 @@
 #include <locale.h>
 
 int main() { 
-    
+    //Teste commit Samuel
     //Essa linha faz os acentos e caracteres especiais funcionarem.
     setlocale(LC_ALL,"");
 

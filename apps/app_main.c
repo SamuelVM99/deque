@@ -5,7 +5,7 @@
 #include <locale.h>
 
 int main() { 
-    
+    //Teste commit Samuel
     //Essa linha faz os acentos e caracteres especiais funcionarem.
     setlocale(LC_ALL,"");
 
@@ -43,13 +43,13 @@ int main() {
     obj3.dado = 30;
 
     obj.proximo = p2;
-    obj.anterior = p3;
+    obj.anterior = NULL;
 
     obj2.anterior = p;
     obj2.proximo = p3;
 
-    obj3.proximo = p;
     obj3.anterior = p2;
+    obj3.proximo = NULL;
 
     //Instância a lista e popula ela com o tamanho, primeiro objeto e último objeto.
     ListaDupla listaInicial = {3, p, p3};
@@ -72,6 +72,7 @@ int main() {
         //Lê o input do usuario e guarda sua escolha, que será utilizada no switch case
         printf("\nOpção: ");
         scanf("%d", &escolha);
+        printf("\n");
 
         /* Valida se o input do usuário é um input válido
             Caso não seja, é impresso uma mensagem e esse loop é ingorado 
@@ -81,7 +82,6 @@ int main() {
             continue;
         }
 
-        int valor = 0;
         //Switch case que será utilizado para definir qual função executar, baseado na opção do usuário.
         switch (escolha) {
         case FINALIZAR_PROGRAMA:
@@ -90,13 +90,14 @@ int main() {
             break;
 
         case ADICIONAR_INICIO:
-            printf("Digite o valor que deseja adicionar no inicio da lista: ");
-            scanf("%d", &valor);
-            addInicio(list, valor);
+            //addInicio();
             break;
 
         case 2:
-            //addFinal();
+            printf("Informe o dado que deseja adicionar\n");
+            int dado;
+            scanf("%d", &dado);
+            addFinal(list, dado);
             break;
 
         case 3:

@@ -22,7 +22,7 @@ typedef struct lista_dupla {
 ListaDupla* criarLista(ListaDupla* list);
 
 //Adiciona um objeto ao inicio de dada lista.
-void addInicio(ListaDupla* list, int tamanho);
+void addInicio(ListaDupla* list, int valor);
 
 //Adiciona um objeto ao final de dada lista.
 void addFinal(ListaDupla* list, int dado);

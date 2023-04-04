@@ -4,6 +4,8 @@
 #include <stdbool.h>
 
 ListaDupla* criarLista(ListaDupla* list){
+    list = (ListaDupla*) malloc(sizeof(ListaDupla));
+
     list->tamanho = 0;
     list->primeiro = NULL;
     list->ultimo = NULL;
@@ -11,8 +13,37 @@ ListaDupla* criarLista(ListaDupla* list){
     return list;
 }
 
-void addInicio(ListaDupla* list, int tamanho) {
+void addInicio(ListaDupla* list, int valor) {
+    if (list == NULL) {
+        list = criarLista(list); // é uma nova lista e atribui valor a ele
+    }
+   
+    // Criado novo item na steack e atribui os valores
+    ObjInterno* ptrNovoElemento = (ObjInterno*) malloc(sizeof(ObjInterno));
+    ptrNovoElemento->dado = valor;
+    ptrNovoElemento->anterior = NULL;
+    ptrNovoElemento->proximo = NULL;
 
+    // Verifica se o primeiro item da lista é nula, 
+    if (list->primeiro == NULL)
+    {
+        // atribui o novo elemente no inicio e no fim da cabeça
+        list->primeiro = ptrNovoElemento;
+        list->ultimo = ptrNovoElemento;
+    }
+    else // o primeiro item da lista não é nula entao ja possui itens
+    {
+        // pega o proximo do novo elemente e atribui valor para o primeiro elemento da lista
+        ptrNovoElemento->proximo = list->primeiro;
+        
+        // pega o primeiro item da lista e atribui valor ao item anterior do primeiro item da lista e atribui o valor do novo elemene
+        list->primeiro->anterior = ptrNovoElemento;
+
+        // e pega o primeiro item da cabeça e atriui ao novo elemente
+        list->primeiro = ptrNovoElemento;
+    }
+
+    list->tamanho++;
 }
 
 void addFinal(ListaDupla* list, int dado) {
@@ -64,20 +95,32 @@ int imprimeLista(ListaDupla* list) {
         return 0;
     }
 
-    // Declara o primeiro objeto que será utilizado no loop de impressão
+    /*
+    /Declara o primeiro objeto que será utilizado no loop de impressão
     ObjInterno objAtual = *list->primeiro;
 
     for (int i = 0; i < list->tamanho; i++) {
         printf("Dado do objeto na posicao %d: %d\n", i+1, objAtual.dado);
 
-        /* Após imprimir o valor é utilizado a mesma variável para guardar o próximo
-        objeto que será impresso na próxima iteração */
+         Após imprimir o valor é utilizado a mesma variável para guardar o próximo
+        objeto que será impresso na próxima iteração 
+        
         if(objAtual.proximo == NULL) {
             break;
         }
         objAtual = *objAtual.proximo;
     }
+    */
     
+    ObjInterno* ptr_no_atual = list->primeiro;
+     printf("Lista Cabeça -> \n");
+     int count = 0;
+     while (ptr_no_atual != NULL) {
+        count++;
+        printf("    [%d] valor -> %d \n", count, ptr_no_atual->dado);
+        ptr_no_atual = ptr_no_atual->proximo;
+    }
+    printf(" NULL \n"); 
     //Caso tudo tenha dado certo retorna 1, que não será utilizado para nada.
     return 1;
 }

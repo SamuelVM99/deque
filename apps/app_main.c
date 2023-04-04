@@ -27,8 +27,8 @@ int main() {
 
     /* Essa seção do código serve para testes até que todas as funções estejam prontas para que
     possamos testa-las. Se desejar pode utilizar os objetos e a lista abaixo para testes das funções */
-
     //Instânciamento dos objetos e ponteiros que serão alocados dentro da lista dupla.
+    /*
     ObjInterno obj;
     ObjInterno obj2;
     ObjInterno obj3;
@@ -50,10 +50,13 @@ int main() {
 
     obj3.anterior = p2;
     obj3.proximo = NULL;
+    */
 
     //Instância a lista e popula ela com o tamanho, primeiro objeto e último objeto.
-    ListaDupla listaInicial = {3, p, p3};
-    ListaDupla* list = &listaInicial;
+    //ListaDupla listaInicial = {3, p, p3};
+
+    ListaDupla* list = NULL;
+    list = criarLista(list);
 
     //Loop do menu
     while(!finalizar) {
@@ -90,7 +93,10 @@ int main() {
             break;
 
         case ADICIONAR_INICIO:
-            //addInicio();
+            printf("Informe o dado que deseja adicionar\n");
+            int dadoNovo;
+            scanf("%d", &dadoNovo);
+            addInicio(list, dadoNovo);
             break;
 
         case 2:

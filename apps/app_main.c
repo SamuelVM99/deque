@@ -27,33 +27,32 @@ int main() {
 
     /* Essa seção do código serve para testes até que todas as funções estejam prontas para que
     possamos testa-las. Se desejar pode utilizar os objetos e a lista abaixo para testes das funções */
-
     //Instânciamento dos objetos e ponteiros que serão alocados dentro da lista dupla.
-    ObjInterno obj;
-    ObjInterno obj2;
-    ObjInterno obj3;
 
-    ObjInterno* p = &obj;
-    ObjInterno* p2 = &obj2;
-    ObjInterno* p3 = &obj3;
+    ObjInterno* p = (ObjInterno*) malloc(sizeof(ObjInterno));
+    ObjInterno* p2 = (ObjInterno*) malloc(sizeof(ObjInterno));
+    ObjInterno* p3 = (ObjInterno*) malloc(sizeof(ObjInterno));
 
     //Popula os objetos
-    obj.dado = 10;
-    obj2.dado = 20;
-    obj3.dado = 30;
+    p->dado = 30;
+    p2->dado = 40;
+    p3->dado = 10;
 
-    obj.proximo = p2;
-    obj.anterior = NULL;
+    p->proximo = p2;
+    p->anterior = NULL;
 
-    obj2.anterior = p;
-    obj2.proximo = p3;
+    p2->anterior = p;
+    p2->proximo = p3;
 
-    obj3.anterior = p2;
-    obj3.proximo = NULL;
+    p3->anterior = p2;
+    p3->proximo = NULL;
 
     //Instância a lista e popula ela com o tamanho, primeiro objeto e último objeto.
-    ListaDupla listaInicial = {3, p, p3};
-    ListaDupla* list = &listaInicial;
+    ListaDupla* list = NULL;
+    list = criarLista(list);
+    //list->primeiro = p;
+    //list->ultimo = p3;
+    //list->tamanho = 3;
 
     //Loop do menu
     while(!finalizar) {
@@ -82,7 +81,9 @@ int main() {
             continue;
         }
 
+
         //Switch case que será utilizado para definir qual função executar, baseado na opção do usuário.
+        int valor = 0;
         switch (escolha) {
         case FINALIZAR_PROGRAMA:
             finalizar = true;
@@ -90,41 +91,43 @@ int main() {
             break;
 
         case ADICIONAR_INICIO:
-            //addInicio();
-            break;
-
-        case 2:
             printf("Informe o dado que deseja adicionar\n");
-            int dado;
-            scanf("%d", &dado);
-            addFinal(list, dado);
+            int dadoNovo;
+            scanf("%d", &dadoNovo);
+            addInicio(list, dadoNovo);
             break;
 
-        case 3:
-            //removeInicio();
+        case ADICIONAR_FINAL:
+            printf("Informe o dado que deseja adicionar\n");
+            scanf("%d", &valor);
+            addFinal(list, valor);
             break;
 
-        case 4:
-            //removeFinal();
+        case REMOVER_INICIO:
+            removeInicio(list);
             break;
 
-        case 5:
+        case REMOVER_FINAL:
+            removeFinal(list);
+            break;
+
+        case BUSCAR_PRIMEIRO:
             buscaPrimeiro(list);
             break;
 
-        case 6:
+        case BUSCAR_ULTIMO:
             buscaUltimo(list);
             break;
 
-        case 7:
-            //organizaAscendente();
+        case ORGANIZAR_ASC:
+            organizaAscendente(list);
             break;
 
-        case 8:
+        case ORGANIZAR_DESC:
             //OrganizaDescendente();
             break;
 
-        case 9:
+        case IMPRIMIR:
             imprimeLista(list);
             break;
         }

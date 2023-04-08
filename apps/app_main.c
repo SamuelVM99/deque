@@ -124,7 +124,7 @@ int main() {
             break;
 
         case ORGANIZAR_DESC:
-            //OrganizaDescendente();
+            OrganizaDescendente(list);
             break;
 
         case IMPRIMIR:

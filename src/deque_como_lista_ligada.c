@@ -42,6 +42,8 @@ void addInicio(ListaDupla* list, int valor) {
     }
 
     list->tamanho++;
+
+    imprimeLista(list);
 }
 
 void addFinal(ListaDupla* list, int dado) {
@@ -66,7 +68,8 @@ void addFinal(ListaDupla* list, int dado) {
         list->ultimo = ptrNovo;
     }
 
-    list->tamanho++; 
+    list->tamanho++;
+    imprimeLista(list); 
 }
 
 void removeInicio(ListaDupla* list) {
@@ -202,8 +205,66 @@ int organizaAscendente(ListaDupla* list) {
 void OrganizaDescendente(ListaDupla* list) {
     // Valida se a lista é nula, vazia o use tem somente um objeto para evitar uma "organização" inútil
     if(list->tamanho == 0 || list->tamanho == 1 || list == NULL) {
-        return 0;
+        return;
     }
+
+    // cria um array de item da lista
+    ObjInterno* array[list->tamanho];
+    ObjInterno* objAux = NULL;
+
+    // adiciona o primeiro item da lista dentro da primeira posição do array
+    array[0] = list->primeiro;
+
+    // percorre a lista colocando todos itens dentro do array de forma não organizada
+    for (int i = 0; i < list->tamanho; i++)
+    {
+        if (array[i-1]->proximo != NULL)
+        {
+            array[i] = array[i-1]->proximo;
+        }
+    }
+    
+    int trocou = 1;
+    while (trocou != 0)
+    {
+        trocou = 0;
+
+        for (int i = 0; i < list->tamanho; i++)
+        {
+            if (i + 1 < list->tamanho)
+            {
+                if (array[i]->dado < array[i+1]->dado)
+                {
+                    trocou++;
+                    objAux = array[i];
+
+                    array[i] = array[i+1];
+                    array[i+1] = objAux;    
+                }
+            }
+        }
+    }
+
+    /* Depois de organizado, ajusta os ponteiros de acordo com suas posições no array */
+    for(int i = 0; i < list->tamanho; i++) {
+        if(i + 1 < list->tamanho) {
+            array[i]->proximo = array[i + 1];
+        }
+    }
+
+    for(int i = list->tamanho -1; i >= 0; i--) {
+        if(i - 1 >= 0) {
+            array[i]->anterior = array[i - 1];
+        }
+    }
+
+    list->primeiro = array[0];
+    list->ultimo = array[list->tamanho - 1];
+
+    list->primeiro->anterior = NULL;
+    list->ultimo->proximo = NULL;
+    
+    return;
 }
 
 int imprimeLista(ListaDupla* list) {
